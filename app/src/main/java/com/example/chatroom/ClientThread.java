@@ -33,15 +33,16 @@ public class ClientThread implements Runnable {
             mBufferedReader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
             mOutputStream = mSocket.getOutputStream();//输出流，客户端到管道
 
-            //接受子线程
+            //客户端接受服务器信息
             new Thread(){
                 @Override
                 public void run() {
                     super.run();
                     try {
                         String content = null;
-                        //接收消息
+                        //一个新线程持续循环的接受从服务器的消息，再发送给chatroom
                         while ((content = mBufferedReader.readLine()) != null) {
+
                             Log.d("get from server",content);
                             //将接受到的数据传递给msg对象，并标记
                             Message handleMsg = new Message();
@@ -60,6 +61,7 @@ public class ClientThread implements Runnable {
             // （主线程除外，主线程系统会自动为其创建Looper对象，开启消息循环。）
             Looper.prepare();
             //绑定发送线程的Handler
+            //由chatroom点击事件跳转到这里发送消息
             revHandler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
