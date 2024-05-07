@@ -64,7 +64,6 @@ public class Chatroom extends AppCompatActivity {
         msgRecyclerView.setAdapter(adapter);
 
         //重写Handler类handleMessage方法，并将对象赋给mHandler
-        //该Handler绑定主线程，如果主线程的what为0则更新输入
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message handleMsg) {
@@ -161,8 +160,6 @@ public class Chatroom extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("*/*");
                 startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
-
-
             }
         });
         //创建实例，将mHandler作为参数传递给mClientThread实例
@@ -266,7 +263,7 @@ public class Chatroom extends AppCompatActivity {
                 Message handleMsg = new Message();
                 handleMsg.what = 1;
                 handleMsg.obj =newFileAddress ;
-                //"/data/data/llk/files/"
+
                 //将msg传递给发送子线程
                 fClientThread.revfHandler.sendMessage(handleMsg);
                 //输入框变空

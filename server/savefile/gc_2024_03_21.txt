@@ -1,1 +1,0 @@
-08:40:46.485 INFO  GCLog - PowerKitManager: initPowerKitCompat init ,powerKitTag=e21416a1-0561-444f-be6e-e4335b06fe8e

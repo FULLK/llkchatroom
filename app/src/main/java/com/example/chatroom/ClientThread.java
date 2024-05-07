@@ -27,7 +27,7 @@ public class ClientThread implements Runnable {
     @Override
     public void run() {
         try {
-            mSocket = new Socket("192.168.115.253", 8848);
+            mSocket = new Socket("192.168.135.253", 8848);
             Log.d("xjj","connect success");
             //输入流管道到客户端
             mBufferedReader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));

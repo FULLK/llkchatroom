@@ -40,7 +40,7 @@ public class FileThread implements  Runnable {
     @Override
     public void run() {
         try {
-            fSocket = new Socket("192.168.115.253", 18848);
+            fSocket = new Socket("192.168.135.253", 18848);
             Socket socket = null;
             new Thread() {
                 @Override
@@ -62,7 +62,7 @@ public class FileThread implements  Runnable {
                         handleMsg.obj = content+" position at "+" /storage/emulated/0/Download/";
                         fHandler.sendMessage(handleMsg);
                             filename = dis.readUTF();
-                            Log.e("file name", " "+filename );
+                            Log.e("file name", "/storage/emulated/0/Download/"+filename );
                             //根据服务器发送过来的UTF格式的文件名字
                             String destFilePath ="/storage/emulated/0/Download/"+filename;
                             File file = new File(destFilePath);

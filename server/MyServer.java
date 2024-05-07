@@ -9,11 +9,10 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-/**
- * Created by heshu on 2017/8/29.
- */
+
 public class MyServer {
     public static ArrayList<Socket> mSocketList = new ArrayList<>() ;
+    public static ArrayList<Socket> fSocketList = new ArrayList<>() ;
     public static void main(String[] args) throws SocketException{
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
         while (networkInterfaces.hasMoreElements()) {
@@ -28,21 +27,25 @@ public class MyServer {
         try {
             //创建服务器Socket
             ServerSocket ss = new ServerSocket(8848);
+            ServerSocket fs = new ServerSocket(18848);
             while (true){
                 //监听链接
                 Socket s = ss.accept();
+                Socket f = fs.accept();
                 //打印信息
                 System.out.println("ip:"+ s.getInetAddress().getHostAddress() +"加入聊天室");
+                System.out.println("ip:"+ f.getInetAddress().getHostAddress()+" 客户端已经链接文件服务");
                 //将s加入到线程池中
                 mSocketList.add(s);
+                fSocketList.add(f);
                 //启动子线程
                 new Thread(new ServerThread(s)).start();
+                new Thread(new FileThread(f) ).start();
             }
         }catch (IOException e){
             e.printStackTrace();
             System.out.println("服务器已崩溃");
             e.printStackTrace();
-
         }
     }
 }
